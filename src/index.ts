@@ -5,3 +5,5 @@ export const addNumbers = async (first: number, second: number) => {
     await timeout(500);
     return first + second;
 };
+
+addNumbers(5, 4).then(console.log);

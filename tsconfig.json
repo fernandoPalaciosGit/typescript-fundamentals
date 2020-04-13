@@ -7,10 +7,14 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "outDir": "build",
+    "watch": true,
+    // target: configure compilation scope
+    "target": "ES2015",
     "lib": [
       "es6",
       "dom"
-    ]
+    ],
+    "module": "CommonJS"
   },
   "include": [
     "src/**/*"
