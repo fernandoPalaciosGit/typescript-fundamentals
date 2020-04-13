@@ -1,0 +1,17 @@
+{
+  "name": "typescript-fundamentals",
+  "version": "1.0.0",
+  "description": "typescript compiler and runtime effects",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Fernando Palacios Landi",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
