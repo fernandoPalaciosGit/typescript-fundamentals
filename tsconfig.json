@@ -1,20 +1,29 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true,
     "strict": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
+    // importante durante una migracion de vanilla js
     "noUnusedLocals": false,
+    // evitar variables sueltas en bloques
     "noUnusedParameters": false,
+    // evitar parametros sueltos en metodos
+    "strictNullChecks": true,
+    // evita valores de retorno null o undefined en metodos;
+    "noImplicitAny": true,
+    // evitar los tipos de variable Any
+    "declaration": true,
+    // crear los archivos de declaracion, que permiten al script de javascript a traves de aalgunos IDES, reconocer los tipos
+    "sourceMap": true,
+    // crear los archivos de source mapping para los debuggers
+    "target": "ES2015",
+    // scope del compilador para estandares web
+    "module": "CommonJS",
+    // scope del compilador para modularizacion de scripts
     "outDir": "build",
     "watch": true,
-    // target: configure compilation scope
-    "target": "ES2015",
     "lib": [
       "es6",
       "dom"
-    ],
-    "module": "CommonJS"
+    ]
   },
   "include": [
     "src/**/*"
