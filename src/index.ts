@@ -7,3 +7,10 @@ export const addNumbers = async (first: number, second: number) => {
 };
 
 addNumbers(5, 4).then(console.log);
+
+// INFERENCIA DE TIPOS
+let test = 'testing';
+test = 87; // ALERT
+
+const testObj = {test: 897};
+testObj.test = new Date(); // ALERT
