@@ -34,3 +34,8 @@ RECOMENDACION: si estamos desarrollando para una libreria SI es conveniente, de 
 ### TOP TYPES (Any wilcard)
 cuando una variable declarada NO se le asigna un valor o un tipo determinado, typescript le asigna el tipo Any
 Este un caso donde tyescript permitiria la reasignacion con distiintos tipos de valor en el mismo espacio de memoria.
+
+## INTERSECTION OR UNION OPERATORS en Obejetos
+esto es para inicializar una variable con la combincion de diferentes tipos de interfaces
+INTERSECTION: todas las propiedades y sus tipos deben aparecer en el objeto declarado
+UNION: solo se puede acceder a las propiedades que coincidan

@@ -51,4 +51,22 @@ interface PERSON {
     name: string;
     age?: number;
 }
+
 let myPerson: PERSON = { name: 'palacios' };
+
+// INTERSECTION OR UNION OPERATORS
+interface Animal {
+    legs: number;
+    tail: boolean;
+    age: Date;
+}
+
+interface DOG_PET {
+    bark: boolean;
+    age: Date;
+    hair: boolean;
+}
+
+const wally: DOG_PET & Animal = { age: new Date(), bark: true, hair: false, legs: 4, tail: true };
+const my_wally: DOG_PET | Animal = { age: new Date(), bark: true, hair: false, legs: 4};
+console.log(my_wally.hair); // ALERT: ony access to the variables hat appears in both interfaces
