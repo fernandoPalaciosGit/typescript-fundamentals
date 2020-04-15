@@ -77,10 +77,32 @@ const parameters = (...args: number[]) => args.reduce((sum, val) => sum + val, 0
 
 const getAnimal = (pet: { age: Date }): DOG_PET & Animal => ({ // should return the types expected in the intersection of the interfaces
     legs: 64,
-    age: new Date(),
+    age: pet.age || new Date(),
     tail: true,
     bark: true,
     hair: false,
 });
 
 getAnimal({ age: new Date() }) // should pass the argument expected
+
+// GOOD
+function names(person: { myname?: number[] | 'nando' }) {
+    return person.myname;
+}
+
+// BETTER : de esta manera podemos usar la declaracion de argumentos de ES6 y despues la declaracon de tipos de ypescript
+function names2({ myname = 'nando' }: { myname?: number[] | string }): number[] | string {
+    return myname;
+}
+
+// MUCH BETTER
+interface Names {
+    myname?: number[] | string
+}
+
+const names3 = ({ myname = 'nando' }: Names): Names => ({ myname });
+
+names3({ myname: [1, 2, 3] }) // or array of number
+names3({ myname: "nando" }) // or specific value
+names3({}) // name could be undefined
+names3() // person should be as parameter
