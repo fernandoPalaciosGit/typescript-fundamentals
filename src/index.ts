@@ -68,5 +68,19 @@ interface DOG_PET {
 }
 
 const wally: DOG_PET & Animal = { age: new Date(), bark: true, hair: false, legs: 4, tail: true };
-const my_wally: DOG_PET | Animal = { age: new Date(), bark: true, hair: false, legs: 4};
+const my_wally: DOG_PET | Animal = { age: new Date(), bark: true, hair: false, legs: 4 };
 console.log(my_wally.hair); // ALERT: ony access to the variables hat appears in both interfaces
+
+// FUNCTIONS
+// should define spread argument types
+const parameters = (...args: number[]) => args.reduce((sum, val) => sum + val, 0);
+
+const getAnimal = (pet: { age: Date }): DOG_PET & Animal => ({ // should return the types expected in the intersection of the interfaces
+    legs: 64,
+    age: new Date(),
+    tail: true,
+    bark: true,
+    hair: false,
+});
+
+getAnimal({ age: new Date() }) // should pass the argument expected
