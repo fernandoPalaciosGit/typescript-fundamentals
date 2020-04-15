@@ -8,14 +8,32 @@ export const addNumbers = async (first: number, second: number) => {
 
 addNumbers(5, 4).then(console.log);
 
+// INICIALIZACION
+let objectTest: object;
+objectTest.test = 123;
+
 // INFERENCIA DE TIPOS
 let test = 'testing';
 test = 87; // ALERT
 
-const testObj = {test: 897};
+const testObj = { test: 897 };
 testObj.test = new Date(); // ALERT
 
 // TOP TYPE
 let testTopType; // ==== let testTopType: any;
 testTopType = 456;
 testTopType = new Date();
+
+// ARRAY
+let arrayOne: number[] = []; // array de numeros
+let arrayTwo = [123] // array de numeros por inferencia de tipos
+arrayOne.push('123'); // ALERT
+arrayTwo.push('123'); // ALERT
+let arrayThree = []; // BAD -> POR INFERRENCIA DE TIPO = array[]
+arrayThree.push('123');
+
+// ARRAY LENGTH AND TYPE VALUES
+let arrayFour: [number, string, Date, any] = [132, '132', new Date(123), false];
+arrayFour = [132]; // ALERT by length
+arrayFour[1] = 876; // ALERT by type
+arrayFour[3] = 54654; // CORRECT in this array position : any
