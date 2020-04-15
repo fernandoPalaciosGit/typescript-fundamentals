@@ -37,3 +37,18 @@ let arrayFour: [number, string, Date, any] = [132, '132', new Date(123), false];
 arrayFour = [132]; // ALERT by length
 arrayFour[1] = 876; // ALERT by type
 arrayFour[3] = 54654; // CORRECT in this array position : any
+
+// OBJECTS
+const objectTestOne: { name: string; age: number } = { name: 'nando', age: 30 };
+
+// UNDEFINED TYPES
+const objectTestTwo: { friend?: string } = {}; // CORRECT undefined friend
+objectTestTwo.friend = '654'; // CORRECT type
+objectTestTwo.friend = 654; // ALERT incorrect type
+
+// INTERFACES : types for an structure
+interface PERSON {
+    name: string;
+    age?: number;
+}
+let myPerson: PERSON = { name: 'palacios' };
