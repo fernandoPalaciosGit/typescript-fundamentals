@@ -14,3 +14,8 @@ test = 87; // ALERT
 
 const testObj = {test: 897};
 testObj.test = new Date(); // ALERT
+
+// TOP TYPE
+let testTopType; // ==== let testTopType: any;
+testTopType = 456;
+testTopType = new Date();

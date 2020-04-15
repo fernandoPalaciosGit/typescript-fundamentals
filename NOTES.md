@@ -20,11 +20,17 @@ tpo de encapsulcion compilada
 depende del entorno en el que se ejecutaria el script, por ejemplo se definira commonjs si se utiliza el interprete de nodeJS 
 
 
-BABEL + TYPESCRIPT
+### BABEL + TYPESCRIPT
 se puede usar typescript como checker de codigo, y babel como transpilador de modulos
 esto permite dejar typescript con la configuracion de esNext (o alguna muy avanzada ES2020) para que babel sea el responsable de definir el target de los escripts y compilar tu codigo moderno al formato que se decida entregar al cliente
 
-INFERENCIA DE TIPOS
+### INFERENCIA DE TIPOS
 No es necesario declarar el tipo de todas nuestras variables, typescript resuelve el tipo por inferencia del valor asignado a la variable, y nos avisa si reasignamos el valor con otro tipo.
 
 los argumento de metoddo sSI los debemos declara porque no son explicitos desde fuera. Pero si son variables de tipos smples que manejamos desde bloques, NO es necesario declararlos.
+
+RECOMENDACION: si estamos desarrollando para una libreria SI es conveniente, de esta manera el cliente que la requiera es capaz de saber el tipo fuera del compilador de typscript. pero normalmente NO es necesario porque nuestro IDE interpreta por inferencia el tipo y nos alerta adecuadamente.
+
+### TOP TYPES (Any wilcard)
+cuando una variable declarada NO se le asigna un valor o un tipo determinado, typescript le asigna el tipo Any
+Este un caso donde tyescript permitiria la reasignacion con distiintos tipos de valor en el mismo espacio de memoria.
