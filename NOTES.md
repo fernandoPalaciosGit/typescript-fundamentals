@@ -39,3 +39,9 @@ Este un caso donde tyescript permitiria la reasignacion con distiintos tipos de 
 esto es para inicializar una variable con la combincion de diferentes tipos de interfaces
 INTERSECTION: todas las propiedades y sus tipos deben aparecer en el objeto declarado
 UNION: solo se puede acceder a las propiedades que coincidan
+
+### OVERLOAD SIGNATURES
+cada parametro de metodo puede sebreescribirse con varios tipos
+
+### CONTEXT DEFINITION INTO SIGNATURE
+podemos definir el tipo de 'this' en la firma del metodo

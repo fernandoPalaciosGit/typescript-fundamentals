@@ -106,3 +106,70 @@ names3({ myname: [1, 2, 3] }) // or array of number
 names3({ myname: "nando" }) // or specific value
 names3({}) // name could be undefined
 names3() // person should be as parameter
+
+// OVERLOAD SIGNATURES
+interface HasEmail {
+    person: string;
+    email: string;
+}
+
+interface HasPhoneNumber {
+    person: string;
+    phone: number;
+}
+
+function sendEmail(person: HasEmail) {
+}
+
+function sendTextMessage(person: HasPhoneNumber) {
+}
+
+const sendContact = (
+    method: 'email' | 'phone',
+    contactList: (HasEmail | HasPhoneNumber)[]
+): void => {
+    if (method === "email") {
+        (contactList as HasEmail[]).forEach(sendEmail)
+    } else {
+        (contactList as HasPhoneNumber[]).forEach(sendTextMessage)
+    }
+};
+
+// En este caso no tiene sentido la relación de argumentos, un contacto de tipo email deberia tener el email y viceveersa con el phone
+// el problema de aqui es que TS no tiene manera de relacionar la combinacion de tipos en ambos argumentos
+sendContact("email", [{ person: 'nando', phone: 654 }]);
+sendContact("phone", [{ person: 'nando', email: 'tes' }]);
+
+// SOLUCION: divde y venceras
+const sendEmailContact = (method: 'email', contact: HasEmail[]): void =>
+    contact.forEach(sendEmail)
+
+const sendPhoneContact = (method: 'phone', contact: HasPhoneNumber[]): void =>
+    contact.forEach(sendTextMessage)
+
+sendEmailContact("phone", [{ person: 'nando', phone: 654 }]); // Alert
+sendPhoneContact("phone", [{ person: 'nando', email: 'tes' }]); // Alert
+
+// LEXICAL SCOPE
+function sendMessage(
+    this: HasPhoneNumber & HasEmail, // DEFINICION DEL CONTEXTO DE EJECUCION !!!!!!
+    method: 'phone' | 'email'
+) {
+    if (method === 'phone') {
+        sendEmail(this);
+    } else {
+        sendTextMessage(this);
+    }
+}
+
+function invokeSoon(callback: Function, timeout: number) {
+    setTimeout(() => callback.call(null), timeout);
+}
+
+const personWithPhoneAndEmail = { person: 'nando', phone: 654, email: '@test' };
+sendMessage('email') // ALERT
+invokeSoon(() => sendMessage('phone'), 200) //ALERT
+sendMessage.call(personWithPhoneAndEmail, "phone");
+sendMessage.apply(personWithPhoneAndEmail, ["phone"]);
+invokeSoon(sendMessage.bind(personWithPhoneAndEmail), 300);
+
