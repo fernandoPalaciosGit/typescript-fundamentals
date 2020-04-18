@@ -173,3 +173,50 @@ sendMessage.call(personWithPhoneAndEmail, "phone");
 sendMessage.apply(personWithPhoneAndEmail, ["phone"]);
 invokeSoon(sendMessage.bind(personWithPhoneAndEmail), 300);
 
+// INTERFACES VS TYPE ALIASES
+
+// COMBINACION DE TYPES
+type stringOrNumber = string | number;
+const pets: stringOrNumber = 12;
+
+// INTERSECCION DE TYPES
+type hasName = { name: string };
+type hasAge = { age: number };
+type hasHair = { hairColor?: string };
+type isPerson = hasName & hasAge & hasHair;
+const nando: isPerson = { name: 'nando', age: 30, hairColor: 'braun' };
+const emilio: isPerson = { name: 'nando', age: 30 };
+
+// ERROR CUANDO LOS TIPOS SE INTENTAN AUTO REFERENCIAR
+type numArray = number[];
+type numValue = number | numArray;
+type numTuple = numValue[];
+const testNumArray: numTuple = [1, 2, 3, [1, 2, 3]]
+
+// INTERFACE INHERITANCE -> UNION
+export interface HasInternationalPhoneNumber extends HasPhoneNumber {
+    countryCode: number,
+}
+
+const localContactOne: HasInternationalPhoneNumber = { countryCode: 654, person: 'nando', phone: 5646544 };
+const localContactTwo: HasPhoneNumber | { countryCode: number } = { countryCode: 654, person: 'nando', phone: 5646544 };
+
+// INTERFACES COULD DESCRIBE FUNCTIONS
+interface ContactMessage {
+    (contact: HasPhoneNumber, message: string): string
+}
+
+const contactMessage: ContactMessage = (contact, message) => {
+    return `${contact.phone}; ${message}`;
+};
+
+// EQUIVALENCIA CON LOS TYPES EN EL NOMBRADO DE LAS FUNCIONES
+type ContactMessageByType = (contact: HasPhoneNumber, message: string) => string;
+
+const contactMessageByType: ContactMessageByType = (contact, message) => {
+    return `${contact.phone}; ${message}`;
+};
+
+// CONTEXTUAL INFERENCE
+// se trata de que typescript deduzca el tipo de un argumento por la definicion de otro argumento con la misma firma declarada anteriormente
+const ContactMessageByTypeInference: ContactMessageByType = (_contact, _message) => 'test';

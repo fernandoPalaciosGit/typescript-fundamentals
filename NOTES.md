@@ -45,3 +45,16 @@ cada parametro de metodo puede sebreescribirse con varios tipos
 
 ### CONTEXT DEFINITION INTO SIGNATURE
 podemos definir el tipo de 'this' en la firma del metodo
+
+### INTERFACES VS TYPE ALIASES
+definicion de esructura de datos
+los aliases se utilizan para nombrar tipos compuestos, extienden las funciones de las interfaces, don mucho mas flecibles.
+las interfaces están limitadas a nombrar los tipos de los objetos, arrays y funciones.
+los type se pueden combinar por interseccion o union de tipos.
+las "auto referencias" no funcionan con los tipos, typescript entra en error cuando encuentra un tipo referenciado circularmente
+las
+
+INDEX SIGNATURE
+OPEN INTERFACES: augment types from external resources
+ACCESS MODIFIER KEYWORD: visibility of the scope of the variables 
+INHERITANCE CLAUSES: different from intersection or union operators.
