@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     // evitar los tipos de variable Any
     "declaration": true,
+    "declarationDir": "types",
     // crear los archivos de declaracion, que permiten al script de javascript a traves de aalgunos IDES, reconocer los tipos
     "sourceMap": true,
     // crear los archivos de source mapping para los debuggers

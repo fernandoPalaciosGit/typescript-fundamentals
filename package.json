@@ -4,7 +4,8 @@
   "description": "typescript compiler and runtime effects",
   "main": "index.js",
   "scripts": {
-    "test": "test.js"
+    "test": "dtslint --localTs node_modules/typescript/lib types",
+    "start": "tsc"
   },
   "keywords": [
     "typescript"
@@ -12,6 +13,7 @@
   "author": "Fernando Palacios Landi",
   "license": "ISC",
   "devDependencies": {
+    "dtslint": "^3.4.1",
     "typescript": "^3.8.3"
   }
 }
