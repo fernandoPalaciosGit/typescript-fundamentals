@@ -220,3 +220,65 @@ const contactMessageByType: ContactMessageByType = (contact, message) => {
 // CONTEXTUAL INFERENCE
 // se trata de que typescript deduzca el tipo de un argumento por la definicion de otro argumento con la misma firma declarada anteriormente
 const ContactMessageByTypeInference: ContactMessageByType = (_contact, _message) => 'test';
+
+
+// DICTIONARY OBJECTS
+interface PhoneNumberDict {
+    [person: string]: { // INDEX SIGNATURES
+        areaCode: number;
+        number: number;
+    }
+}
+
+const list: PhoneNumberDict = {};
+if (typeof list.abc === 'string') { // ALERT: typescript detecta que esto nunca ocurrira
+    list.abc
+}
+const phoneList: PhoneNumberDict = {
+    nando: {
+        areaCode: 654,
+        number: 654
+    },
+    'juan': {
+        areaCode: 654,
+        number: 654
+    }
+};
+
+// COMBINACIÓN DE INTERFACES -> DECLARATION MERGING
+type simplePhone = {
+    areaCode: number;
+    number: number;
+}
+
+interface PhonePersonalNumber {
+    [person: string]: simplePhone
+}
+
+interface PhonePersonalNumber {
+    home: simplePhone,
+    work: simplePhone
+}
+
+const personalNumbersOne: PhonePersonalNumber = { // ALERT: home is missing
+    work: { areaCode: 654, number: 654 },
+}
+
+const personalNumbersTwo: PhonePersonalNumber = {
+    home: { areaCode: 654, number: 654 }, // required
+    work: { areaCode: 654, number: 654 }, // required
+    parents: { areaCode: 654, number: 654 }, // optional
+    personal: { areaCode: 654, number: 654 }, // optional
+};
+
+
+type NumValues = 1 | 2;
+type NumArrays = NumValues | NumValues[];
+
+interface Index extends Array<NumArrays> {
+}
+
+const x: Index = [1, 2, [1, 2]];
+const xx: Index = [1, 2, [1, 2, 3]]; // fail because index tuple
+const xxx: Index = [1, 3, [1, 2]]; // fail because index tuple
+const xxxx: Index = [1, 2, [1, [1, 2]]]; // fail because index tuple

@@ -52,7 +52,10 @@ los aliases se utilizan para nombrar tipos compuestos, extienden las funciones d
 las interfaces están limitadas a nombrar los tipos de los objetos, arrays y funciones.
 los type se pueden combinar por interseccion o union de tipos.
 las "auto referencias" no funcionan con los tipos, typescript entra en error cuando encuentra un tipo referenciado circularmente
-las
+los type son eagle (permiten la definicion instantanea de tipos), las interfaces son lazy (se pueden combinar con tipos y redefinir la interfaz)
+
+### DICTIONARY OBJECTS
+en una interfaz definimos los tipos de propiedades
 
 INDEX SIGNATURE
 OPEN INTERFACES: augment types from external resources
