@@ -7,6 +7,8 @@
     "noUnusedParameters": false,
     // evitar parametros sueltos en metodos
     "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
     // evita valores de retorno null o undefined en metodos;
     "noImplicitAny": true,
     // evitar los tipos de variable Any

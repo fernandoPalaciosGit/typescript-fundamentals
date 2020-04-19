@@ -76,11 +76,44 @@ estos modifcadores de acceso tienen que corresponder con los valores de visibili
 
 los valores por defecto de las interfaces que se implementan, tambien se aplican a los miembros declarados
 
-DEFINE ASSIGNMENT -> propiedades privadas
+## DEFINE ASSIGNMENT -> propiedades privadas
 las propiedades privadas se deben inicializar o injectar por constructor
 simplemente te alerta de que un miembro internamente podrá accede a una propiedad privada SIN INICIALIZAR y esto no lo permite typescript
 
-LAZY INITIALIZATION -> propiedades privadas
+## LAZY INITIALIZATION -> propiedades privadas
 {private lazyProperty!: number}
 esto avisa al compilador que esta propiedad se inicializara posteriormente a la instanciacion de clase
 
+
+### DURANTE LA TRANSICIÓN A TYPESCRIPT
+ 
+- evitar cambios funcionales: no se deben validar los tipos funcionalmente
+- ceñirse al testing de bajo nivel: afectado por el primer punto, no se deben extender los test debidos a ka migracion a typescript
+- no ofuscarse con el strong typing que proporciona typescript: el objetivo de la migracion es aprovechar progresivamente el type checker y su compilador.
+- testear los types en la medida de lo posible (dtslint: libreria que nos permite testear type information)
+- publicar los types para las librerias que lo consuman
+
+`PRIMER PASO` -> errores de compilación a bajo nivel
+transformar a bajo nivel los archivos js -> ts, peromitiendo que todos los test pasen y que todos los tipos se declaren a traves de `any` type -> tipo implicito siempre y cuando el compilador de typescript lo permita, para recirdar, la inferencia de tipos en typescript solo ocurre en una direccion (de arriba [variable declarada] hacia abajo [variable asignada])
+>
+```typescript
+function naming (name, password = 123) {
+  name.split(','); // inferencia any; como el argumento [name] esta declarado como any, se puede usar como si fuera un array
+  password = `${name}`; // inferencia number | undefined --> Error porque no se puede tratar como un string
+}
+```
+
+`SEGUNDO PASO` -> eliminar any implicito
+se trata de añadir la opcion en la configuracion del ts compile: **{"noImplicitAny": true}**
+lo que significara es que habra un error de compilacion cuando aparezca un any por inferencia de tipos.
+por lo tanto habra que pasar todos los tipos explicitamente, y donde NO se pueda habra que añdir explicitamente el tipo **any**
+
+
+`TERCER PASO` -> activar los strict checks
+**{"strictNullChecks": true}** : no se puede definir valores con null. Solo en las variables que si puedan devolver valores null, se podrá combinar el tipo con null: `private age: string | null`
+**{"strict": true}**
+**{"strictFunctionTypes": true}** para los tipos argumentos y valores retornados
+**{"strictBindCallApply": true}** para los tipos de los callback bindeadon
+
+este paso es el mas extenso, por lo que se debera comitar en pasos
+especialmente hay que evita el casting de tipos (esto sobre-escribe el funcionamiento del type checker)
