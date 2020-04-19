@@ -8,4 +8,4 @@ npm run start
 npm run test
 
 #### run examples by node
-node build/index.js
+node build/examples.js
