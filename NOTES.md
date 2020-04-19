@@ -75,3 +75,12 @@ es una manera que tiene typescript de evitar re declarar multiples veces los mie
 estos modifcadores de acceso tienen que corresponder con los valores de visibilidad de las interfaces que implementan las clases (si las hubiera): `esto quiere decir que las reglas que implementa una clase de una interfaz son conformes si son publicas y visibles desde fuera`
 
 los valores por defecto de las interfaces que se implementan, tambien se aplican a los miembros declarados
+
+DEFINE ASSIGNMENT -> propiedades privadas
+las propiedades privadas se deben inicializar o injectar por constructor
+simplemente te alerta de que un miembro internamente podrá accede a una propiedad privada SIN INICIALIZAR y esto no lo permite typescript
+
+LAZY INITIALIZATION -> propiedades privadas
+{private lazyProperty!: number}
+esto avisa al compilador que esta propiedad se inicializara posteriormente a la instanciacion de clase
+

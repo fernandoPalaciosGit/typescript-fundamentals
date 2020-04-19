@@ -20,7 +20,21 @@ export declare class UserWithModifiers implements HasPhoneNumber {
     phone: number;
     readonly SPECIE: string;
     protected age: number;
-    constructor(person: string, phone?: number);
+    constructor(person: string, // obliga a inicializarla desde la  instancia
+    phone?: number);
     get myAge(): number;
+}
+export declare class Cars {
+    roadType: string;
+    private wheel;
+    private wheelNoInit;
+    private wheelLazy;
+    constructor(roadType: string);
+    init(): Promise<void>;
+}
+export declare class UserPassword {
+    private initialPass;
+    get password(): string | Error;
+    initPassword(): Promise<void>;
 }
 export {};
