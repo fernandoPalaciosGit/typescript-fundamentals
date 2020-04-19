@@ -14,10 +14,10 @@ objectTest.test = 123;
 
 // INFERENCIA DE TIPOS
 let test = 'testing';
-test = 87; // ALERT
+test = 87; // $ExpectError
 
 const testObj = { test: 897 };
-testObj.test = new Date(); // ALERT
+testObj.test = new Date(); // $ExpectError
 
 // TOP TYPE
 let testTopType; // ==== let testTopType: any;
@@ -27,15 +27,15 @@ testTopType = new Date();
 // ARRAY
 let arrayOne: number[] = []; // array de numeros
 let arrayTwo = [123] // array de numeros por inferencia de tipos
-arrayOne.push('123'); // ALERT
-arrayTwo.push('123'); // ALERT
+arrayOne.push('123'); // $ExpectError
+arrayTwo.push('123'); // $ExpectError
 let arrayThree = []; // BAD -> POR INFERRENCIA DE TIPO = array[]
 arrayThree.push('123');
 
 // ARRAY LENGTH AND TYPE VALUES
 let arrayFour: [number, string, Date, any] = [132, '132', new Date(123), false];
-arrayFour = [132]; // ALERT by length
-arrayFour[1] = 876; // ALERT by type
+arrayFour = [132]; // $ExpectError by length
+arrayFour[1] = 876; // $ExpectError by type
 arrayFour[3] = 54654; // CORRECT in this array position : any
 
 // OBJECTS
@@ -44,7 +44,7 @@ const objectTestOne: { name: string; age: number } = { name: 'nando', age: 30 };
 // UNDEFINED TYPES
 const objectTestTwo: { friend?: string } = {}; // CORRECT undefined friend
 objectTestTwo.friend = '654'; // CORRECT type
-objectTestTwo.friend = 654; // ALERT incorrect type
+objectTestTwo.friend = 654; // $ExpectError incorrect type
 
 // INTERFACES : types for an structure
 interface PERSON {
@@ -69,7 +69,7 @@ interface DOG_PET {
 
 const wally: DOG_PET & Animal = { age: new Date(), bark: true, hair: false, legs: 4, tail: true };
 const my_wally: DOG_PET | Animal = { age: new Date(), bark: true, hair: false, legs: 4 };
-console.log(my_wally.hair); // ALERT: ony access to the variables hat appears in both interfaces
+console.log(my_wally.hair); // $ExpectError: ony access to the variables hat appears in both interfaces
 
 // FUNCTIONS
 // should define spread argument types
@@ -105,7 +105,7 @@ const names3 = ({ myname = 'nando' }: Names): Names => ({ myname });
 names3({ myname: [1, 2, 3] }) // or array of number
 names3({ myname: "nando" }) // or specific value
 names3({}) // name could be undefined
-names3() // person should be as parameter
+names3() // $ExpectError person should be as parameter
 
 // OVERLOAD SIGNATURES
 interface HasEmail {
@@ -114,8 +114,8 @@ interface HasEmail {
 }
 
 interface HasPhoneNumber {
-    person: string;
-    phone: number;
+    person: string | '***';
+    phone: number | 0o00;
 }
 
 function sendEmail(person: HasEmail) {
@@ -147,8 +147,8 @@ const sendEmailContact = (method: 'email', contact: HasEmail[]): void =>
 const sendPhoneContact = (method: 'phone', contact: HasPhoneNumber[]): void =>
     contact.forEach(sendTextMessage)
 
-sendEmailContact("phone", [{ person: 'nando', phone: 654 }]); // Alert
-sendPhoneContact("phone", [{ person: 'nando', email: 'tes' }]); // Alert
+sendEmailContact("phone", [{ person: 'nando', phone: 654 }]); // $ExpectError
+sendPhoneContact("phone", [{ person: 'nando', email: 'tes' }]); // $ExpectError
 
 // LEXICAL SCOPE
 function sendMessage(
@@ -167,8 +167,8 @@ function invokeSoon(callback: Function, timeout: number) {
 }
 
 const personWithPhoneAndEmail = { person: 'nando', phone: 654, email: '@test' };
-sendMessage('email') // ALERT
-invokeSoon(() => sendMessage('phone'), 200) //ALERT
+sendMessage('email') // $ExpectError
+invokeSoon(() => sendMessage('phone'), 200) //$ExpectError
 sendMessage.call(personWithPhoneAndEmail, "phone");
 sendMessage.apply(personWithPhoneAndEmail, ["phone"]);
 invokeSoon(sendMessage.bind(personWithPhoneAndEmail), 300);
@@ -187,7 +187,7 @@ type isPerson = hasName & hasAge & hasHair;
 const nando: isPerson = { name: 'nando', age: 30, hairColor: 'braun' };
 const emilio: isPerson = { name: 'nando', age: 30 };
 
-// ERROR CUANDO LOS TIPOS SE INTENTAN AUTO REFERENCIAR
+// NO SE PUEDEN AUTO REFERENCIAR LOS TIPOS
 type numArray = number[];
 type numValue = number | numArray;
 type numTuple = numValue[];
@@ -231,7 +231,7 @@ interface PhoneNumberDict {
 }
 
 const list: PhoneNumberDict = {};
-if (typeof list.abc === 'string') { // ALERT: typescript detecta que esto nunca ocurrira
+if (typeof list.abc === 'string') { // $ExpectError: typescript detecta que esto nunca ocurrirá
     list.abc
 }
 const phoneList: PhoneNumberDict = {
@@ -260,7 +260,7 @@ interface PhonePersonalNumber {
     work: simplePhone
 }
 
-const personalNumbersOne: PhonePersonalNumber = { // ALERT: home is missing
+const personalNumbersOne: PhonePersonalNumber = { // $ExpectError: home is missing
     work: { areaCode: 654, number: 654 },
 }
 
@@ -280,5 +280,40 @@ interface Index extends Array<NumArrays> {
 
 const x: Index = [1, 2, [1, 2]];
 const xx: Index = [1, 2, [1, 2, 3]]; // fail because index tuple
-const xxx: Index = [1, 3, [1, 2]]; // fail because index tuple
-const xxxx: Index = [1, 2, [1, [1, 2]]]; // fail because index tuple
+const xxx: Index = [1, 3, [1, 2]]; // $ExpectError because index tuple
+const xxxx: Index = [1, 2, [1, [1, 2]]]; // $ExpectError because index tuple
+
+// CLASSES BAD
+export class User implements simplePhone {
+    areaCode: number;
+    number: number;
+
+    constructor(areaCode: number, number: number) {
+        this.areaCode = areaCode;
+        this.number = number;
+    }
+}
+
+// CLASSES BETTER
+export class UserWithModifiers implements HasPhoneNumber {
+    readonly SPECIE: string = 'homo sapiens'; // like a final modifier: only access to the same peace of memory (ALERT: not really, only type checker)
+    protected age: number = 0;
+
+    constructor(
+        public person: string,
+        public phone: number = 111
+    ) {
+
+    }
+
+    // create a public member {this.myAge} to access the protected value
+    get myAge() {
+        return this.age;
+    }
+}
+
+const user = new UserWithModifiers('nando');
+user.phone // default value : I dont need to instance initialize
+user.age // $ExpectError protected member
+user.myAge
+user.SPECIE = 'do not rewrite'; // $ExpectError readonly modifier -> ALERT: this could be overriden as a library because this Error hasonly expected at rtpescript checker level, not at the result in compiled code.

@@ -61,3 +61,17 @@ INDEX SIGNATURE
 OPEN INTERFACES: augment types from external resources
 ACCESS MODIFIER KEYWORD: visibility of the scope of the variables 
 INHERITANCE CLAUSES: different from intersection or union operators.
+
+
+### CLASSES
+ACCESS MODIFIER KEYWORDS: declaración de los miembros especificas
+es una manera que tiene typescript de evitar re declarar multiples veces los miembros implementados por una clase
+
+`public`: miembro al que se puede acceder desde la instancia de clase
+`private`: miembro que solo es accesible dentro de la clase
+`protected` : miembro que es accesible dentro de la clase y la subclase
+`readonly`: miembro publico solo de lectura: NO es realmente un modificador de acceso, porque solo funcina a nivel de ts cheker, 
+
+estos modifcadores de acceso tienen que corresponder con los valores de visibilidad de las interfaces que implementan las clases (si las hubiera): `esto quiere decir que las reglas que implementa una clase de una interfaz son conformes si son publicas y visibles desde fuera`
+
+los valores por defecto de las interfaces que se implementan, tambien se aplican a los miembros declarados
