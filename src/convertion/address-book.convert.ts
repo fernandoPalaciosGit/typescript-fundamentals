@@ -1,11 +1,13 @@
-export class AddressBook {
-    contacts = [];
+import {ContactPerson} from "../types";
 
-    addContact(contact) {
+export class AddressBook {
+    contacts: ContactPerson[] = [];
+
+    addContact(contact: ContactPerson) {
         this.contacts.push(contact);
     }
 
-    findContactByName(filter) {
+    findContactByName(filter: ContactPerson) {
         return this.contacts.filter(c => {
             if (
                 typeof filter.firstName !== "undefined" &&
@@ -24,7 +26,7 @@ export class AddressBook {
     }
 }
 
-export function formatDate(date) {
+export function formatDate(date: Date) {
     return (
         date
             .toISOString()
@@ -33,13 +35,13 @@ export function formatDate(date) {
     );
 }
 
-function getFullName(contact) {
+function getFullName(contact: ContactPerson) {
     return [contact.firstName, contact.middleName, contact.lastName]
         .filter(Boolean)
         .join(" ");
 }
 
-export function getVcardText(contact, date = new Date()) {
+export function getVcardText(contact: ContactPerson, date = new Date()) {
     const parts = [
         "BEGIN:VCARD",
         "VERSION:2.1",
