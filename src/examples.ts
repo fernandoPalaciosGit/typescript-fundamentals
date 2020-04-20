@@ -424,6 +424,16 @@ const returnDefaultObject = <T extends ObjectIndex>(array: T[]): { [val: string]
     }, out);
 }
 
-returnDefaultObject([{ id: 'test', code: 'AAA' }]);
+const obj = returnDefaultObject([{ id: 'test', code: 'AAA' }]);
 returnDefaultObject([{ code: 'AAA' }]); // ALERT el parametro del generico debe extender del tipo ObjectIndex, que contiene un {id: string}
+obj.test.code; // el linter nos permite descubrir las propiedades asignadas al objeto {[val: string]: T} gracias a la conversion por ele generico
 
+
+// SCOPE PARAMETERS
+const creatTuple = <T>(val1: T) => {
+    // U not accesible at this level
+    // return <U>(val2: U): [T, U] => [val1, val2];
+    return <U>(val2: U) => [val1, val2] as [T, U];
+}
+
+const myTuple = creatTuple('34')(654);

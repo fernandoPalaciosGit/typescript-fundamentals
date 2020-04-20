@@ -126,4 +126,6 @@ El tratamiento es identico que el de los argumentos en el scope de una funcion, 
 
 se suele utilizar como nomenclatura `T` para definir los genericos , ya que se asememjan a los template parameters de C++
 
-CONSTRAINTS => extend parameters with default value
+CONSTRAINT PARAMETERS => extend parameters with default value
+
+SCOPE PARAMETERS => dentro de una funcion, los parametros del generico tambien tienen su visibilidad dentro de los posibles bloques que aparezcan en el socope de la función 
