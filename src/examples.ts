@@ -410,3 +410,20 @@ function resolveOrTimeoutImplicit<T>(request: Promise<T>, timeout: number): Prom
 
 resolveOrTimeoutExplicit(fetch(""), 3000).then((val) => console.log(val));
 resolveOrTimeoutImplicit(fetch(""), 3000).then((val) => console.log(val));
+
+
+// TYPE PARAMETERS (GENERICS) WITH CONSTRAINTS <extends
+type ObjectIndex = { id: string };
+type ReturnObjectIndex<T extends ObjectIndex> = (array: T[]) => { [val: string]: T }; // todo: ¿it is possible to apply this generic to s function declaration?
+
+const returnDefaultObject = <T extends ObjectIndex>(array: T[]): { [val: string]: T } => {
+    const out: { [val: string]: T } = {};
+    return array.reduce((acc, val) => {
+        acc[val.id] = val;
+        return acc;
+    }, out);
+}
+
+returnDefaultObject([{ id: 'test', code: 'AAA' }]);
+returnDefaultObject([{ code: 'AAA' }]); // ALERT el parametro del generico debe extender del tipo ObjectIndex, que contiene un {id: string}
+
