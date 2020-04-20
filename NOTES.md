@@ -128,4 +128,8 @@ se suele utilizar como nomenclatura `T` para definir los genericos , ya que se a
 
 CONSTRAINT PARAMETERS => extend parameters with default value
 
-SCOPE PARAMETERS => dentro de una funcion, los parametros del generico tambien tienen su visibilidad dentro de los posibles bloques que aparezcan en el socope de la función 
+SCOPE PARAMETERS => dentro de una funcion, los parametros del generico tambien tienen su visibilidad dentro de los posibles bloques que aparezcan en el socope de la función
+
+NO ABUSAR DE LOS GENERICOS: los type parameters en genericos siempre van a permitor confirmar el tipo, pero el beneficio de esta particularidad de parametrizar las interfaces o tipo con genericos es que podemos abstraer a un alto nivel la referencia del tipo que se pasa por parametro, asi que dentro de la funcion podemos usar ese generico para referneciar otras estructuras de datos que requieran esa refenci.
+en resumen hay que evitar utilizar los genericos si podemos sustituirlos por los tipos que correspondan, pero si la implementacion de la funcion es mas compleja y requiera referencias de ese tipo, pues aprovechemos el generico
+ 

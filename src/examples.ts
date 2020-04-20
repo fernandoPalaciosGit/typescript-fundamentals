@@ -437,3 +437,25 @@ const creatTuple = <T>(val1: T) => {
 }
 
 const myTuple = creatTuple('34')(654);
+
+// GENERIC INHERITANCE
+interface Shape {
+    draw(line: number): void
+}
+
+interface Circle extends Shape {
+    radius: number;
+}
+
+function drawCircle<T extends Circle>(shapes: T[]) { // referencia a mas alto nivel
+    shapes.forEach((shape) => shape.draw(shape.radius))
+}
+
+function drawCircleSame(shapes: Circle[]) { // referencia de tipos a amas bajo nivel
+    shapes.forEach((shape) => shape.draw(shape.radius))
+}
+
+const circle = drawCircle([{
+    draw() {
+    }, radius: 654
+}]);
