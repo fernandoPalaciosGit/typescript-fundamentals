@@ -359,3 +359,54 @@ export class UserPassword {
 const userPass = new UserPassword();
 userPass.password // will throw Error
 userPass.initPassword().then(() => userPass.password); // would return private initialPass value
+
+// GENERICS
+export interface HasNameByInterface<T> {
+    name: T;
+    age: T;
+}
+
+export type HasNameByType<T> = {
+    name: T;
+    age: T;
+}
+
+const testName: HasNameByInterface<string> | HasNameByType<string>
+    = { name: 'Jooan', age: '231' };
+
+// con valor por defecto definido
+export interface FilterFunction<T = string> {
+    (val: T): boolean
+}
+
+// se puede inicializar en función de lo que declare la implentacion del metodo, pero por defecto el tipo del generico lo define (en este caso) la interfax
+const selectIfString: FilterFunction = (val) => typeof val === "string";
+['654'].filter(selectIfString);
+[54].filter(selectIfString); // ALERT : valor por defecto es nun string
+
+const selectSomeIfString: FilterFunction<any> = (val) => typeof val === "string";
+['654'].filter(selectSomeIfString);
+[54].filter(selectSomeIfString);
+[true].filter(selectSomeIfString);
+
+// INFERENCIA DE GENERICOS
+function resolveOrTimeoutExplicit<Response>(request: Promise<Response>, timeout: number): Promise<Response> {
+    /****/
+    return new Promise<Response>(() => {
+        /****/
+    });
+}
+
+function resolveOrTimeoutImplicit<T>(request: Promise<T>, timeout: number): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+        const taskTimer = setTimeout(() => reject('time out'), timeout);
+
+        request.then((val) => {
+            clearTimeout(taskTimer);
+            resolve(val);
+        });
+    });
+}
+
+resolveOrTimeoutExplicit(fetch(""), 3000).then((val) => console.log(val));
+resolveOrTimeoutImplicit(fetch(""), 3000).then((val) => console.log(val));

@@ -117,3 +117,11 @@ por lo tanto habra que pasar todos los tipos explicitamente, y donde NO se pueda
 
 este paso es el mas extenso, por lo que se debera comitar en pasos
 especialmente hay que evita el casting de tipos (esto sobre-escribe el funcionamiento del type checker)
+
+
+### GENERICS
+se utiliza para parametrizar tipos e interfaces (al igual que las funciones parametrizan valores)
+se trata de un parámetro que define el valor que va a devolver la interfaz o el tipo
+El tratamiento es identico que el de los argumentos en el scope de una funcion, se trata de un tipo que se puede utilizar en la declaracion de cualquier elemento dentro de la deficicion de la interfaz o tipo
+
+se suele utilizar como nomenclatura `T` para definir los genericos , ya que se asememjan a los template parameters de C++
