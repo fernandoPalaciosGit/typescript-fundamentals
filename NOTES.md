@@ -132,4 +132,15 @@ SCOPE PARAMETERS => dentro de una funcion, los parametros del generico tambien t
 
 NO ABUSAR DE LOS GENERICOS: los type parameters en genericos siempre van a permitor confirmar el tipo, pero el beneficio de esta particularidad de parametrizar las interfaces o tipo con genericos es que podemos abstraer a un alto nivel la referencia del tipo que se pasa por parametro, asi que dentro de la funcion podemos usar ese generico para referneciar otras estructuras de datos que requieran esa refenci.
 en resumen hay que evitar utilizar los genericos si podemos sustituirlos por los tipos que correspondan, pero si la implementacion de la funcion es mas compleja y requiera referencias de ese tipo, pues aprovechemos el generico
+
+### TOP TYPES
+BOTTOM TYPES: `never`
+TOP TYPES: `any`, `unknown`
+    - pueden recibir cualquier valor, flexibilidad en la aplicación
+    - unknown debe validar su tipo antes de usarlo -> TYPE GUARD para usarlo
+    - unknown se utiliza siempre que el origen de la variable sea desconocida, por ejemplo **datos externos a la aplicación (API)**, de la cual no podemos asegurar el tipo de variable
+
+
  
+### GUARDS AND EXTREME TYPES
+

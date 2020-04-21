@@ -11,7 +11,7 @@ export class User implements simplePhone {
 
 // CLASSES BETTER
 export class UserWithModifiers implements HasPhoneNumber {
-    readonly SPECIE: string = 'homo sapiens'; // like a final modifier: only access to the same peace of memory (ALERT: not really, only type checker)
+    readonly SPECIE: string = 'homo sapiens'; // like a final modifier: only access to the same peace of memory (not really, only type checker)
     protected age: number = 0;
 
     constructor(
@@ -31,7 +31,7 @@ const user = new UserWithModifiers('nando');
 user.phone // default value : I dont need to instance initialize
 user.age // $ExpectError protected member
 user.myAge
-user.SPECIE = 'do not rewrite'; // $ExpectError readonly modifier -> ALERT: this could be overriden as a library because this Error hasonly expected at rtpescript checker level, not at the result in compiled code.
+user.SPECIE = 'do not rewrite'; // $ExpectError readonly modifier -> this could be overriden as a library because this Error hasonly expected at rtpescript checker level, not at the result in compiled code.
 
 // CLASSES INITIALIZATION
 export class Cars {

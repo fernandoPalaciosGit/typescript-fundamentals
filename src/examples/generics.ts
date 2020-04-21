@@ -19,7 +19,7 @@ export interface FilterFunction<T = string> {
 // se puede inicializar en función de lo que declare la implentacion del metodo, pero por defecto el tipo del generico lo define (en este caso) la interfax
 const selectIfString: FilterFunction = (val) => typeof val === "string";
 ['654'].filter(selectIfString);
-[54].filter(selectIfString); // ALERT : valor por defecto es nun string
+[54].filter(selectIfString); // $ExpectError : valor por defecto es nun string
 
 const selectSomeIfString: FilterFunction<any> = (val) => typeof val === "string";
 ['654'].filter(selectSomeIfString);
@@ -63,7 +63,7 @@ const returnDefaultObject = <T extends ObjectIndex>(array: T[]): { [val: string]
 }
 
 const obj = returnDefaultObject([{ id: 'test', code: 'AAA' }]);
-returnDefaultObject([{ code: 'AAA' }]); // ALERT el parametro del generico debe extender del tipo ObjectIndex, que contiene un {id: string}
+returnDefaultObject([{ code: 'AAA' }]); // $ExpectError el parametro del generico debe extender del tipo ObjectIndex, que contiene un {id: string}
 obj.test.code; // el linter nos permite descubrir las propiedades asignadas al objeto {[val: string]: T} gracias a la conversion por ele generico
 
 
