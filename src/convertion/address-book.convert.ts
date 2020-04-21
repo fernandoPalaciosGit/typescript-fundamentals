@@ -1,4 +1,4 @@
-import {ContactPerson} from "../types";
+import {ContactPerson} from "./types";
 
 export class AddressBook {
     contacts: ContactPerson[] = [];
