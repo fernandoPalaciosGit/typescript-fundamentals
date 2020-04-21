@@ -32,3 +32,26 @@ export type EventualType<T> = T extends Promise<infer S> ? S : T
 
 let test: EventualType<number[]>;
 let testTest: EventualType<Promise<number>>;
+
+// PARTIAL TYPE ---> es como un Object.assign que permite tener un TIPO OPCIONAL
+export type Notebook = Partial<ContactTypes>;
+export type Identifier = { dni: number };
+const myNotes: Notebook | Identifier = { dni: 654, fax: { line: 654 } }; // could implement ContactTypes or not
+
+// PICK TYPE ---> restringe las propiedades del tipo
+export type OnlyCatch<T> = Pick<Promise<T>, 'catch'>;
+const asyncStuff: OnlyCatch<number> = new Promise(() => {
+});
+asyncStuff.catch(() => {
+});
+asyncStuff.then(() => { // $ExpectError Property 'then' does not exist on type 'Pick  , "catch">'.
+});
+
+// ---------------------
+export type Dairy = Pick<ContactTypes, 'phone'>;
+const myDairy: Dairy = { // you could only pick phone
+    phone: {
+        mobile: 654,
+        home: 654
+    }
+};
