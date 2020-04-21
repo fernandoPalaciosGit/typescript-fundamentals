@@ -142,5 +142,8 @@ TOP TYPES: `any`, `unknown`
 
 
  
-### GUARDS AND EXTREME TYPES
+### TYPE GUARDS -> unknow types
+se utiliza en la declaracion de los metodos para hacer la comprobacion que necesita typescript para poder utilizar el tipo
+(unknownVariable: any): unknownVariable is KnownType => {}
+    
 
