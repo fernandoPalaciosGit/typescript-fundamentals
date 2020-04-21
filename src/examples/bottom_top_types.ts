@@ -51,3 +51,20 @@ const myBrand = { channel: 'OTH' };
 getBrandType(JSON.stringify(myBrand));
 getBrandTypeString(myBrand);
 
+// BODY GUARDS IN NEVER TYPES
+class UnreachableError extends Error {
+    constructor(type: never, message: string) {
+        super(`We should never reach this point at compilation time: ${message}`);
+    }
+}
+
+const response = 564 as number | string | boolean;
+
+if (typeof response === 'number') {
+    console.log(response)
+} else if (typeof response === 'string') {
+    console.log(response)
+} else {
+    // $ExpectError because we are not managing boolean value ----> THAT IS USEFUL TO PROGRAM IN DEFENCE WAY (only occurs at typescript compilation time)
+    throw new UnreachableError(response, `response shouldn't be ${typeof response}`);
+}
